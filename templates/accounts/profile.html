@@ -40,6 +40,19 @@
         </div>
 
 
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
         <form
             method="POST"
             enctype="multipart/form-data"
@@ -48,7 +61,7 @@
             {% csrf_token %}
 
 
-            <div class="profile-upload">
+            <div class="profile-upload" id="photo-preview">
 
                 {% if profile.photo %}
 
@@ -94,6 +107,7 @@
                     type="file"
                     name="photo"
                     accept="image/*"
+                    id="photo-input"
                 >
 
             </div>
@@ -125,5 +139,32 @@
 </div>
 
 </body>
+
+<script>
+
+const photoInput = document.getElementById("photo-input");
+
+const preview = document.getElementById("photo-preview");
+
+
+photoInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        preview.innerHTML = '<img src="' + e.target.result + '" alt="Profile">';
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+</script>
 
 </html>

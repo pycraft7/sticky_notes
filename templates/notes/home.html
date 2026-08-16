@@ -45,7 +45,10 @@
 
         <!-- PROFILE -->
 
-        <div class="profile">
+        <a
+            href="{% url 'profile' %}"
+            class="profile"
+        >
 
             <div class="profile-photo">
 
@@ -79,7 +82,7 @@
 
             </div>
 
-        </div>
+        </a>
 
 
         <!-- NAVIGATION -->
@@ -91,6 +94,14 @@
                 class="nav-link active"
             >
                 <span>My Notes</span>
+            </a>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="nav-link"
+            >
+                <span>My Profile</span>
             </a>
 
         </nav>
