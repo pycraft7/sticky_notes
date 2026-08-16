@@ -137,7 +137,7 @@ MEDIA_URL = "/media/"
 
 
 
-LOGIN_URL = "/accounts/login/"
+LOGIN_URL = "/accounts/"
 
 LOGIN_REDIRECT_URL = "/"
 
