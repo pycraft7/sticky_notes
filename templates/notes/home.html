@@ -1,0 +1,227 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sticky Notes</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'notes/css/home.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                S
+            </div>
+
+            <span>
+                Sticky Notes
+            </span>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-photo">
+
+                {% if profile.photo %}
+
+                    <img
+                        src="{{ profile.photo.url }}"
+                        alt="{{ profile.full_name }}"
+                    >
+
+                {% else %}
+
+                    <div class="profile-letter">
+                        {{ profile.full_name|first|upper }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="profile-details">
+
+                <h3>
+                    {{ profile.full_name }}
+                </h3>
+
+                <p>
+                    {{ request.user.email }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+            <a
+                href="{% url 'home_views' %}"
+                class="nav-link active"
+            >
+                <span>My Notes</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-link logout-link"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="main-header">
+
+            <div>
+
+                <h1>
+                    My Notes
+                </h1>
+
+                <p>
+                    Keep your ideas organized.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'add_note' %}"
+                class="primary-btn"
+            >
+                + Add Note
+            </a>
+
+        </header>
+
+
+        <!-- NOTES -->
+
+        <section class="notes-grid">
+
+            {% for note in notes %}
+
+                <article class="note-card">
+
+                    <div>
+
+                        <h2>
+                            {{ note.title }}
+                        </h2>
+
+                        <p class="note-content">
+                            {{ note.content }}
+                        </p>
+
+                    </div>
+
+
+                    <div class="note-footer">
+
+                        <span>
+                            {{ note.created_at|date:"M d, Y" }}
+                        </span>
+
+
+                        <div class="actions">
+
+                            <a
+                                href="{% url 'edit_note' note.pk %}"
+                                class="edit-btn"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'delete_note' note.pk %}"
+                                class="delete-btn"
+                            >
+                                Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        +
+                    </div>
+
+                    <h2>
+                        No Notes Yet
+                    </h2>
+
+                    <p>
+                        Create your first sticky note.
+                    </p>
+
+                    <a
+                        href="{% url 'add_note' %}"
+                        class="primary-btn"
+                    >
+                        Create Note
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

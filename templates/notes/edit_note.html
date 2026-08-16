@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edit Note</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'notes/css/home.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>
+                Edit Note
+            </h1>
+
+            <p>
+                Update your note.
+            </p>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label>
+                    Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ note.title }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Content
+                </label>
+
+                <textarea
+                    name="content"
+                    rows="9"
+                    required
+                >{{ note.content }}</textarea>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'home_views' %}"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Update Note
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

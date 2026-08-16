@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'accounts/css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Update your profile information.
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="profile-upload">
+
+                {% if profile.photo %}
+
+                    <img
+                        src="{{ profile.photo.url }}"
+                        alt="Profile"
+                    >
+
+                {% else %}
+
+                    <div class="profile-large-letter">
+                        {{ profile.full_name|first|upper }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="full_name"
+                    value="{{ profile.full_name }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Profile Photo
+                </label>
+
+                <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'home_views' %}"
+                    class="secondary-btn"
+                >
+                    Back
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

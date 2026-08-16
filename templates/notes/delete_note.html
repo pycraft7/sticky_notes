@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Delete Note</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'notes/css/home.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="form-page">
+
+    <div class="delete-card">
+
+        <div class="delete-icon">
+            !
+        </div>
+
+
+        <h1>
+            Delete Note?
+        </h1>
+
+
+        <p>
+            Are you sure you want to delete
+            <strong>"{{ note.title }}"</strong>?
+        </p>
+
+
+        <p class="warning">
+            This action cannot be undone.
+        </p>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'home_views' %}"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="danger-btn"
+                >
+                    Delete Note
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
